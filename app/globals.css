@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Question card – View Discussion button animation */
+.question-btn:hover .question-btn-icon {
+  width: calc(100% - 0.6em);
+}
+
+.question-btn:hover .question-btn-icon svg {
+  transform: translateX(0.1em);
+}
+
+.question-btn:active .question-btn-icon {
+  transform: scale(0.95);
+}

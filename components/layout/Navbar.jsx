@@ -46,6 +46,7 @@ export default function Navbar() {
   };
 
   return (
+    <>
     <nav className="sticky top-0 z-50 w-full border-b border-[#E7E0D3] bg-[#F8F6F1]">
       {/* PRIMARY NAV */}
     <div className="px-6 lg:px-8 h-20 flex items-center">
@@ -192,8 +193,8 @@ export default function Navbar() {
       <MegaMenu />
     </div>
     </nav>
-
     {/* ── Full-window AI Chat ── */}
     <AIChatPanel isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import "./globals.css";
 import Providers from "./providers";
-import AIChatButton from "@/components/ai/AIChatButton";
 
 export const metadata = {
   title: "Plantify",
@@ -13,7 +12,6 @@ export default function RootLayout({ children }) {
       <body className="bg-white text-black antialiased">
         <Providers>
           {children}
-          <AIChatButton />
         </Providers>
       </body>
     </html>

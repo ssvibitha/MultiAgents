@@ -30,3 +30,420 @@ a {
 .question-btn:active .question-btn-icon {
   transform: scale(0.95);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PLANTIFY AI CHAT PANEL — scoped styles (.plantai-*)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Layout helpers ── */
+.plantai-flex        { display: flex; }
+.plantai-flex-1      { flex: 1; min-width: 0; }
+.plantai-justify-end { justify-content: flex-end; }
+.plantai-gap-2       { gap: 8px; }
+.plantai-mb-3        { margin-bottom: 12px; }
+.plantai-mb-4        { margin-bottom: 16px; }
+.plantai-spacer      { margin: 4px 0; }
+.plantai-line        { margin: 2px 0; line-height: 1.55; }
+
+/* ── Backdrop ── */
+.plantai-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  z-index: 998;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+.plantai-backdrop-visible {
+  background: rgba(0,0,0,0.35);
+  pointer-events: auto;
+}
+
+/* ── Side panel ── */
+.plantai-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 420px;
+  max-width: 100vw;
+  background: #F8F6F1;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow: -8px 0 40px rgba(0,0,0,0.18);
+}
+@media (max-width: 480px) {
+  .plantai-panel { width: 100vw; }
+}
+.plantai-panel-open {
+  transform: translateX(0);
+}
+
+/* ── Header ── */
+.plantai-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: #2F4638;
+  color: #fff;
+  flex-shrink: 0;
+}
+.plantai-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.plantai-header-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.plantai-header-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+.plantai-header-subtitle {
+  font-size: 11px;
+  opacity: 0.65;
+  margin: 2px 0 0;
+}
+.plantai-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.plantai-icon-btn {
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.plantai-icon-btn:hover { background: rgba(255,255,255,0.25); }
+
+/* ── Body (scrollable) ── */
+.plantai-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 16px;
+  scroll-behavior: smooth;
+}
+.plantai-body::-webkit-scrollbar { width: 4px; }
+.plantai-body::-webkit-scrollbar-track { background: transparent; }
+.plantai-body::-webkit-scrollbar-thumb { background: #c8c0b0; border-radius: 4px; }
+
+/* ── Welcome screen ── */
+.plantai-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px 8px 16px;
+}
+.plantai-welcome-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: plantai-bounce 2s infinite;
+}
+@keyframes plantai-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.plantai-welcome-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2F4638;
+  margin: 0 0 8px;
+}
+.plantai-welcome-sub {
+  font-size: 13px;
+  color: #76706A;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+.plantai-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.plantai-suggestion-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1.5px solid #E7E0D3;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #343434;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+.plantai-suggestion-chip:hover {
+  border-color: #7F9360;
+  background: #F0F4EC;
+  transform: translateX(3px);
+}
+.plantai-chip-arrow {
+  color: #7F9360;
+  flex-shrink: 0;
+}
+
+/* ── Messages ── */
+.plantai-messages {
+  display: flex;
+  flex-direction: column;
+}
+
+/* User bubble */
+.plantai-user-bubble {
+  background: #2F4638;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 18px 18px 4px 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 80%;
+  word-break: break-word;
+}
+
+/* Bot avatar */
+.plantai-bot-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #2F4638;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Bot bubble */
+.plantai-bot-bubble {
+  background: #fff;
+  border: 1px solid #E7E0D3;
+  border-radius: 4px 18px 18px 18px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #343434;
+  line-height: 1.55;
+  max-width: 100%;
+  word-break: break-word;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* Agent badge */
+.plantai-agent-badge {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #7F9360;
+  background: #F0F4EC;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-weight: 600;
+}
+
+/* ── Typing indicator ── */
+.plantai-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px !important;
+  width: fit-content;
+}
+.plantai-typing span {
+  width: 7px;
+  height: 7px;
+  background: #7F9360;
+  border-radius: 50%;
+  animation: plantai-dot 1.2s infinite;
+}
+.plantai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.plantai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes plantai-dot {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Product cards ── */
+.plantai-product-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.plantai-product-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px solid #E7E0D3;
+  border-radius: 12px;
+  padding: 10px 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.plantai-product-card:hover {
+  border-color: #7F9360;
+  box-shadow: 0 2px 10px rgba(127,147,96,0.12);
+}
+.plantai-product-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.plantai-product-info { flex: 1; min-width: 0; }
+.plantai-product-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2F4638;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.plantai-product-price {
+  font-size: 13px;
+  color: #7F9360;
+  font-weight: 700;
+  margin: 0;
+}
+.plantai-add-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #7F9360;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.2s, transform 0.15s;
+}
+.plantai-add-btn:hover { background: #2F4638; transform: scale(1.1); }
+.plantai-add-btn-added { background: #4CAF50 !important; }
+
+/* ── Input area ── */
+.plantai-input-area {
+  padding: 14px 16px 16px;
+  border-top: 1px solid #E7E0D3;
+  background: #F8F6F1;
+  flex-shrink: 0;
+}
+.plantai-input-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1.5px solid #E7E0D3;
+  border-radius: 999px;
+  padding: 6px 6px 6px 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.plantai-input-form:focus-within {
+  border-color: #7F9360;
+  box-shadow: 0 0 0 3px rgba(127,147,96,0.12);
+}
+.plantai-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  color: #343434;
+}
+.plantai-input::placeholder { color: #A09890; }
+.plantai-input:disabled { opacity: 0.5; }
+.plantai-send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #7F9360;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.15s;
+}
+.plantai-send-btn:hover:not(:disabled) { background: #2F4638; transform: scale(1.05); }
+.plantai-send-btn:disabled { background: #C8D4BC; cursor: not-allowed; }
+.plantai-spin { animation: plantai-spin 1s linear infinite; }
+@keyframes plantai-spin { to { transform: rotate(360deg); } }
+
+.plantai-disclaimer {
+  font-size: 10px;
+  color: #A09890;
+  text-align: center;
+  margin: 8px 0 0;
+}
+
+/* ── Floating Action Button ── */
+.plantai-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 997;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2F4638;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(47,70,56,0.35);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.plantai-fab:hover {
+  background: #7F9360;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(47,70,56,0.4);
+}
+.plantai-fab-icon { flex-shrink: 0; }
+.plantai-fab-label { white-space: nowrap; }
+
+/* Pulse animation to draw attention */
+.plantai-fab-pulse {
+  animation: plantai-fab-pulse 2s ease-in-out 3;
+}
+@keyframes plantai-fab-pulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(47,70,56,0.35); }
+  50% { box-shadow: 0 6px 32px rgba(127,147,96,0.7), 0 0 0 8px rgba(127,147,96,0.15); }
+}
+
+@media (max-width: 480px) {
+  .plantai-fab { bottom: 20px; right: 16px; padding: 12px 16px; }
+  .plantai-fab-label { display: none; }
+}

@@ -11,16 +11,21 @@ import {
   ShoppingCart,
   User,
   ChevronDown,
+  Sparkles,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useSession, signOut } from "next-auth/react";
 import MegaMenu from "@/components/layout/MegaMenu";
+import dynamic from "next/dynamic";
+
+const AIChatPanel = dynamic(() => import("@/components/ai/AIChatPanel"), { ssr: false });
 
 export default function Navbar() {
   const router = useRouter();
   const { totalCount } = useCart();
   const [q, setQ] = useState("");
   const [profileOpen, setProfileOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   const { data: session } = useSession();
   const user = session?.user ?? null;
@@ -62,8 +67,8 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* CENTER SEARCH */}
-      <div className="flex-1 flex justify-center pl-50">
+      {/* CENTER SEARCH + ASK AI */}
+      <div className="flex-1 flex items-center justify-center pl-50 gap-3">
         <form
           onSubmit={onSearch}
           className="w-full max-w-xl"
@@ -86,6 +91,24 @@ export default function Navbar() {
             </button>
           </div>
         </form>
+
+        {/* ── Ask AI button ── */}
+        <button
+          id="ask-ai-navbar-btn"
+          onClick={() => setChatOpen(true)}
+          className="relative cursor-pointer py-2.5 px-5 text-center font-semibold inline-flex justify-center items-center gap-2 text-sm uppercase text-white rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline focus:outline-2 focus:outline-white focus:outline-offset-4 overflow-hidden bg-[#2F4638] shrink-0"
+          style={{ letterSpacing: "0.04em" }}
+        >
+          <Sparkles size={15} className="relative z-20" />
+          <span className="relative z-20 whitespace-nowrap">Ask AI</span>
+          {/* shimmer sweep */}
+          <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-white/20 rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
+          {/* corner borders */}
+          <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#D4EDF9] absolute h-[20%] rounded-tl-lg border-l-2 border-t-2 top-0 left-0" />
+          <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#D4EDF9] absolute group-hover:h-[90%] h-[60%] rounded-tr-lg border-r-2 border-t-2 top-0 right-0" />
+          <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#D4EDF9] absolute h-[60%] group-hover:h-[90%] rounded-bl-lg border-l-2 border-b-2 left-0 bottom-0" />
+          <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#D4EDF9] absolute h-[20%] rounded-br-lg border-r-2 border-b-2 right-0 bottom-0" />
+        </button>
       </div>
 
       {/* RIGHT */}
@@ -169,5 +192,8 @@ export default function Navbar() {
       <MegaMenu />
     </div>
     </nav>
+
+    {/* ── Full-window AI Chat ── */}
+    <AIChatPanel isOpen={chatOpen} onClose={() => setChatOpen(false)} />
   );
 }

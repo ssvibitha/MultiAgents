@@ -32,205 +32,214 @@ a {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PLANTIFY AI CHAT PANEL — scoped styles (.plantai-*)
+   PLANTIFY AI CHAT — Full-window overlay (.fw-*)
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Layout helpers ── */
-.plantai-flex        { display: flex; }
-.plantai-flex-1      { flex: 1; min-width: 0; }
-.plantai-justify-end { justify-content: flex-end; }
-.plantai-gap-2       { gap: 8px; }
-.plantai-mb-3        { margin-bottom: 12px; }
-.plantai-mb-4        { margin-bottom: 16px; }
-.plantai-spacer      { margin: 4px 0; }
-.plantai-line        { margin: 2px 0; line-height: 1.55; }
+/* ── Tiny layout helpers ── */
+.fw-flex         { display: flex; }
+.fw-flex-1       { flex: 1; min-width: 0; }
+.fw-justify-end  { justify-content: flex-end; }
+.fw-gap-2        { gap: 8px; }
+.fw-mb-3         { margin-bottom: 12px; }
+.fw-mb-4         { margin-bottom: 16px; }
 
-/* ── Backdrop ── */
-.plantai-backdrop {
+/* ── Full-screen overlay ── */
+.fw-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0);
-  z-index: 998;
+  z-index: 9999;
+  background: rgba(15, 25, 18, 0);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
   pointer-events: none;
   transition: background 0.3s ease;
 }
-.plantai-backdrop-visible {
-  background: rgba(0,0,0,0.35);
+.fw-overlay-open {
+  background: rgba(15, 25, 18, 0.72);
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ── Window (the actual chat UI) ── */
+.fw-window {
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  background: #F8F6F1;
+  opacity: 0;
+  transform: translateY(24px) scale(0.97);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.fw-window-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
-/* ── Side panel ── */
-.plantai-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 420px;
-  max-width: 100vw;
-  background: #F8F6F1;
-  display: flex;
-  flex-direction: column;
-  z-index: 999;
-  transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
-  box-shadow: -8px 0 40px rgba(0,0,0,0.18);
-}
-@media (max-width: 480px) {
-  .plantai-panel { width: 100vw; }
-}
-.plantai-panel-open {
-  transform: translateX(0);
-}
-
 /* ── Header ── */
-.plantai-header {
+.fw-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20px;
-  background: #2F4638;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, #1e3228 0%, #2F4638 60%, #3a5a45 100%);
   color: #fff;
   flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.plantai-header-left {
+.fw-header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
-.plantai-header-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
+.fw-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.plantai-header-title {
-  font-size: 16px;
+.fw-header-title {
+  font-size: 18px;
   font-weight: 700;
   margin: 0;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
 }
-.plantai-header-subtitle {
+.fw-header-sub {
   font-size: 11px;
-  opacity: 0.65;
-  margin: 2px 0 0;
+  opacity: 0.55;
+  margin: 3px 0 0;
+  letter-spacing: 0.02em;
 }
-.plantai-header-actions {
+.fw-header-right {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.plantai-icon-btn {
-  background: rgba(255,255,255,0.12);
-  border: none;
+.fw-icon-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
   color: #fff;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background 0.2s;
 }
-.plantai-icon-btn:hover { background: rgba(255,255,255,0.25); }
+.fw-icon-btn:hover { background: rgba(255,255,255,0.22); }
 
-/* ── Body (scrollable) ── */
-.plantai-body {
+/* ── Scrollable content area ── */
+.fw-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 20px 16px;
+  padding: 32px 28px;
   scroll-behavior: smooth;
 }
-.plantai-body::-webkit-scrollbar { width: 4px; }
-.plantai-body::-webkit-scrollbar-track { background: transparent; }
-.plantai-body::-webkit-scrollbar-thumb { background: #c8c0b0; border-radius: 4px; }
+.fw-content::-webkit-scrollbar { width: 4px; }
+.fw-content::-webkit-scrollbar-track { background: transparent; }
+.fw-content::-webkit-scrollbar-thumb { background: #c4bdb0; border-radius: 4px; }
 
 /* ── Welcome screen ── */
-.plantai-welcome {
+.fw-welcome {
+  max-width: 560px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 32px 8px 16px;
+  padding-top: 24px;
 }
-.plantai-welcome-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-  animation: plantai-bounce 2s infinite;
+.fw-welcome-emoji {
+  font-size: 56px;
+  margin-bottom: 20px;
+  animation: fw-float 3s ease-in-out infinite;
 }
-@keyframes plantai-bounce {
+@keyframes fw-float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-8px); }
 }
-.plantai-welcome-title {
-  font-size: 20px;
+.fw-welcome-title {
+  font-size: 26px;
   font-weight: 700;
-  color: #2F4638;
-  margin: 0 0 8px;
+  color: #1e3228;
+  margin: 0 0 10px;
+  letter-spacing: -0.4px;
 }
-.plantai-welcome-sub {
-  font-size: 13px;
+.fw-welcome-sub {
+  font-size: 14px;
   color: #76706A;
-  line-height: 1.6;
-  margin: 0 0 24px;
+  line-height: 1.65;
+  margin: 0 0 32px;
 }
-.plantai-suggestions {
-  display: flex;
-  flex-direction: column;
+.fw-chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   width: 100%;
 }
-.plantai-suggestion-chip {
+@media (max-width: 600px) {
+  .fw-chips { grid-template-columns: 1fr; }
+}
+.fw-chip {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   background: #fff;
   border: 1.5px solid #E7E0D3;
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 13px 16px;
   font-size: 13px;
-  color: #343434;
+  color: #2F4638;
   cursor: pointer;
   text-align: left;
-  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  font-weight: 500;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
-.plantai-suggestion-chip:hover {
+.fw-chip:hover {
   border-color: #7F9360;
   background: #F0F4EC;
-  transform: translateX(3px);
-}
-.plantai-chip-arrow {
-  color: #7F9360;
-  flex-shrink: 0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(127,147,96,0.15);
 }
 
-/* ── Messages ── */
-.plantai-messages {
+/* ── Messages list ── */
+.fw-messages {
+  max-width: 680px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
 
 /* User bubble */
-.plantai-user-bubble {
+.fw-user-bubble {
   background: #2F4638;
   color: #fff;
-  padding: 10px 14px;
+  padding: 11px 16px;
   border-radius: 18px 18px 4px 18px;
   font-size: 14px;
-  line-height: 1.5;
-  max-width: 80%;
+  line-height: 1.55;
+  max-width: 72%;
   word-break: break-word;
+  box-shadow: 0 2px 8px rgba(47,70,56,0.25);
 }
 
 /* Bot avatar */
-.plantai-bot-avatar {
-  width: 28px;
-  height: 28px;
+.fw-bot-avatar {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: #2F4638;
   color: #fff;
@@ -239,100 +248,101 @@ a {
   justify-content: center;
   flex-shrink: 0;
   margin-top: 2px;
+  box-shadow: 0 2px 6px rgba(47,70,56,0.3);
 }
 
 /* Bot bubble */
-.plantai-bot-bubble {
+.fw-bot-bubble {
   background: #fff;
   border: 1px solid #E7E0D3;
   border-radius: 4px 18px 18px 18px;
-  padding: 10px 14px;
+  padding: 12px 16px;
   font-size: 14px;
   color: #343434;
-  line-height: 1.55;
+  line-height: 1.6;
   max-width: 100%;
   word-break: break-word;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 /* Agent badge */
-.plantai-agent-badge {
+.fw-agent-badge {
   display: inline-block;
-  margin-top: 6px;
+  margin-top: 7px;
   font-size: 11px;
   color: #7F9360;
   background: #F0F4EC;
   border-radius: 20px;
-  padding: 2px 10px;
+  padding: 3px 12px;
   font-weight: 600;
+  border: 1px solid #d8e8cc;
 }
 
 /* ── Typing indicator ── */
-.plantai-typing {
-  display: flex;
+.fw-typing {
+  display: flex !important;
   align-items: center;
   gap: 5px;
-  padding: 12px 16px !important;
+  padding: 14px 18px !important;
   width: fit-content;
 }
-.plantai-typing span {
+.fw-typing span {
   width: 7px;
   height: 7px;
   background: #7F9360;
   border-radius: 50%;
-  animation: plantai-dot 1.2s infinite;
+  animation: fw-dot 1.2s infinite;
+  display: block;
 }
-.plantai-typing span:nth-child(2) { animation-delay: 0.2s; }
-.plantai-typing span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes plantai-dot {
-  0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+.fw-typing span:nth-child(2) { animation-delay: 0.2s; }
+.fw-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes fw-dot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
   40% { transform: scale(1); opacity: 1; }
 }
 
 /* ── Product cards ── */
-.plantai-product-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
+.fw-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
 }
-.plantai-product-card {
+.fw-product-card {
   display: flex;
   align-items: center;
   gap: 10px;
   background: #fff;
   border: 1.5px solid #E7E0D3;
   border-radius: 12px;
-  padding: 10px 12px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  padding: 11px 13px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 }
-.plantai-product-card:hover {
+.fw-product-card:hover {
   border-color: #7F9360;
-  box-shadow: 0 2px 10px rgba(127,147,96,0.12);
+  box-shadow: 0 4px 16px rgba(127,147,96,0.14);
+  transform: translateY(-1px);
 }
-.plantai-product-icon {
-  font-size: 24px;
-  flex-shrink: 0;
-}
-.plantai-product-info { flex: 1; min-width: 0; }
-.plantai-product-name {
+.fw-product-icon { font-size: 26px; flex-shrink: 0; }
+.fw-product-info { flex: 1; min-width: 0; }
+.fw-product-name {
   font-size: 13px;
   font-weight: 600;
   color: #2F4638;
-  margin: 0 0 2px;
+  margin: 0 0 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.plantai-product-price {
+.fw-product-price {
   font-size: 13px;
   color: #7F9360;
   font-weight: 700;
   margin: 0;
 }
-.plantai-add-btn {
-  width: 30px;
-  height: 30px;
+.fw-add-btn {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: none;
   background: #7F9360;
@@ -346,46 +356,48 @@ a {
   font-weight: 700;
   transition: background 0.2s, transform 0.15s;
 }
-.plantai-add-btn:hover { background: #2F4638; transform: scale(1.1); }
-.plantai-add-btn-added { background: #4CAF50 !important; }
+.fw-add-btn:hover { background: #2F4638; transform: scale(1.1); }
+.fw-add-btn-added { background: #4caf50 !important; }
 
 /* ── Input area ── */
-.plantai-input-area {
-  padding: 14px 16px 16px;
+.fw-input-area {
+  padding: 16px 28px 20px;
   border-top: 1px solid #E7E0D3;
-  background: #F8F6F1;
+  background: #F0EDE6;
   flex-shrink: 0;
 }
-.plantai-input-form {
+.fw-input-form {
+  max-width: 680px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: #fff;
   border: 1.5px solid #E7E0D3;
   border-radius: 999px;
-  padding: 6px 6px 6px 16px;
+  padding: 8px 8px 8px 20px;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.plantai-input-form:focus-within {
+.fw-input-form:focus-within {
   border-color: #7F9360;
-  box-shadow: 0 0 0 3px rgba(127,147,96,0.12);
+  box-shadow: 0 0 0 3px rgba(127,147,96,0.14);
 }
-.plantai-input {
+.fw-input {
   flex: 1;
   border: none;
   background: transparent;
   outline: none;
-  font-size: 14px;
+  font-size: 15px;
   color: #343434;
 }
-.plantai-input::placeholder { color: #A09890; }
-.plantai-input:disabled { opacity: 0.5; }
-.plantai-send-btn {
-  width: 36px;
-  height: 36px;
+.fw-input::placeholder { color: #A9A09A; }
+.fw-input:disabled { opacity: 0.5; }
+.fw-send-btn {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: none;
-  background: #7F9360;
+  background: #2F4638;
   color: #fff;
   display: flex;
   align-items: center;
@@ -394,56 +406,14 @@ a {
   flex-shrink: 0;
   transition: background 0.2s, transform 0.15s;
 }
-.plantai-send-btn:hover:not(:disabled) { background: #2F4638; transform: scale(1.05); }
-.plantai-send-btn:disabled { background: #C8D4BC; cursor: not-allowed; }
-.plantai-spin { animation: plantai-spin 1s linear infinite; }
-@keyframes plantai-spin { to { transform: rotate(360deg); } }
-
-.plantai-disclaimer {
+.fw-send-btn:hover:not(:disabled) { background: #7F9360; transform: scale(1.06); }
+.fw-send-btn:disabled { background: #C8D4BC; cursor: not-allowed; }
+.fw-spin { animation: fw-spin 1s linear infinite; }
+@keyframes fw-spin { to { transform: rotate(360deg); } }
+.fw-disclaimer {
   font-size: 10px;
-  color: #A09890;
+  color: #A9A09A;
   text-align: center;
-  margin: 8px 0 0;
-}
-
-/* ── Floating Action Button ── */
-.plantai-fab {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 997;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #2F4638;
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 14px 20px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 6px 24px rgba(47,70,56,0.35);
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-}
-.plantai-fab:hover {
-  background: #7F9360;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(47,70,56,0.4);
-}
-.plantai-fab-icon { flex-shrink: 0; }
-.plantai-fab-label { white-space: nowrap; }
-
-/* Pulse animation to draw attention */
-.plantai-fab-pulse {
-  animation: plantai-fab-pulse 2s ease-in-out 3;
-}
-@keyframes plantai-fab-pulse {
-  0%, 100% { box-shadow: 0 6px 24px rgba(47,70,56,0.35); }
-  50% { box-shadow: 0 6px 32px rgba(127,147,96,0.7), 0 0 0 8px rgba(127,147,96,0.15); }
-}
-
-@media (max-width: 480px) {
-  .plantai-fab { bottom: 20px; right: 16px; padding: 12px 16px; }
-  .plantai-fab-label { display: none; }
+  margin: 8px auto 0;
+  max-width: 680px;
 }

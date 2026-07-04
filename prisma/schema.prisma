@@ -90,3 +90,25 @@ model ProductImage {
 
   @@index([productId])
 }
+
+model ChatSession {
+  id          String        @id @default(cuid())
+  customerId  String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  messages    ChatMessage[]
+
+  @@index([customerId])
+}
+
+model ChatMessage {
+  id            String       @id @default(cuid())
+  sessionId     String
+  session       ChatSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role          String       // "user" or "model"
+  content       String       @db.Text
+  createdAt     DateTime     @default(now())
+
+  @@index([sessionId])
+}

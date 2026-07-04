@@ -19,7 +19,7 @@ export async function middleware(req) {
 
   if (!token) {
     const url = new URL("/login", req.url);
-    url.searchParams.set("redirect", pathname);
+    url.searchParams.set("redirect4", pathname);
     return NextResponse.redirect(url);
   }
 

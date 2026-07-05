@@ -7,7 +7,6 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
-from google.api_core.exceptions import ResourceExhausted
 from openai import RateLimitError as AzureRateLimitError
 from orchestrator import route, dispatch_to_specialist
 
@@ -123,7 +122,7 @@ async def chat(req: ChatRequest):
 
         return {"reply": "Sorry, I encountered an error.", "agent": "system"}
 
-    except (ResourceExhausted, AzureRateLimitError):
+    except AzureRateLimitError:
         raise HTTPException(
             status_code=503,
             detail={

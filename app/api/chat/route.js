@@ -12,8 +12,10 @@ export async function POST(req) {
     };
 
     // Proxy the request to the FastAPI backend
-    const backendUrl = process.env.PYTHON_BACKEND_URL || "http://localhost:8000";
-    const response = await fetch(`${backendUrl}/chat`, {
+    const backendUrl = (process.env.PYTHON_BACKEND_URL || "http://localhost:8000").replace(/\/+$/, "");
+    const chatUrl = `${backendUrl}/chat`;
+    console.log("[chat route] Calling backend:", chatUrl);
+    const response = await fetch(chatUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

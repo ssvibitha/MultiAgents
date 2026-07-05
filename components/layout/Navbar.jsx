@@ -55,17 +55,11 @@ export default function Navbar() {
       <div className="flex items-center gap-5 min-w-fit">
         {/* Logo */}
         <Link
-          href="/"
-          className="relative w-32 h-12 shrink-0 block"
-        >
-          <Image
-            src="/logo.jpg"
-            alt="Plantify"
-            fill
-            className="object-contain"
-            priority
-          />
-        </Link>
+            href="/"
+            className="text-3xl font-extrabold tracking-tight text-blue-600"
+          >
+            Plantify
+          </Link>
       </div>
 
       {/* CENTER SEARCH + ASK AI */}

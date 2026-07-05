@@ -89,14 +89,12 @@ export default function SignupForm() {
       {/* Logo + heading */}
       <div className="mb-8 text-center">
         <div className="flex justify-center mb-5">
-          <Image
-            src="/logo.jpg"
-            alt="Logo"
-            width={56}
-            height={56}
-            className="object-contain"
-            priority
-          />
+          <Link
+            href="/"
+            className="text-3xl font-extrabold tracking-tight text-blue-600"
+          >
+            Plantify
+          </Link>
         </div>
 
         <h1 className="text-2xl sm:text-3xl font-semibold text-black">

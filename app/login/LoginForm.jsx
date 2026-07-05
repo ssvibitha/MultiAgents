@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -50,14 +49,12 @@ export default function LoginForm() {
       {/* Heading */}
       <div className="mb-8 text-center">
         <div className="flex justify-center mb-5">
-          <Image
-            src="/logo.jpg"
-            alt="Logo"
-            width={56}
-            height={56}
-            className="object-contain"
-            priority
-          />
+          <Link
+            href="/"
+            className="text-3xl font-extrabold tracking-tight text-blue-600"
+          >
+            Plantify
+          </Link>
         </div>
 
         <h1 className="text-3xl font-semibold text-black">

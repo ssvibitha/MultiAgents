@@ -22,9 +22,10 @@ export async function POST(req) {
     });
 
     if (!response.ok) {
-      console.error("Backend error:", response.status, response.statusText);
+      const errText = await response.text();
+      console.error("Backend error:", response.status, response.statusText, errText);
       return NextResponse.json(
-        { error: "Failed to communicate with backend." },
+        { error: `Backend error ${response.status}: ${errText}` },
         { status: response.status }
       );
     }

@@ -1,137 +1,164 @@
+"""
+Orchestrator — Azure OpenAI GPT-5
+Routes the customer's message to the right specialist agent using
+Azure OpenAI's native function-calling (tool_choice="required").
+"""
 import os
-import google.generativeai as genai
-from google.generativeai.types import FunctionDeclaration, Tool
-from google.api_core.exceptions import ResourceExhausted
+import json
 from dotenv import load_dotenv
+from openai import AzureOpenAI, RateLimitError
 import time
 import random
 
 load_dotenv()
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+
+_client = AzureOpenAI(
+    azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+    api_key=os.environ["AZURE_OPENAI_API_KEY"],
+    api_version=os.environ.get("AZURE_OPENAI_API_VERSION", "2025-01-01-preview"),
+)
+
+GPT5 = os.environ.get("AZURE_DEPLOYMENT_GPT5", "gpt-5")
+
+# ── Tool declarations (OpenAI format) ────────────────────────────────────────
+
+ROUTER_TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "order_shipping_agent",
+            "description": "Order status, tracking, delivery estimates, reship/refund workflows.",
+            "parameters": {
+                "type": "object",
+                "properties": {"query": {"type": "string", "description": "The customer's query"}},
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "product_agent",
+            "description": "Product catalog, stock/size availability, recommendations, cross-sell.",
+            "parameters": {
+                "type": "object",
+                "properties": {"query": {"type": "string", "description": "The customer's query about products"}},
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "returns_refunds_agent",
+            "description": "Return eligibility, return policy, return labels, refunds within approved limits.",
+            "parameters": {
+                "type": "object",
+                "properties": {"query": {"type": "string", "description": "The customer's query about returns or refunds"}},
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "billing_agent",
+            "description": "Failed payments, duplicate charges, promo codes, invoices, refund processing.",
+            "parameters": {
+                "type": "object",
+                "properties": {"query": {"type": "string", "description": "The customer's billing-related query"}},
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "loyalty_account_agent",
+            "description": "Account details, loyalty points, point redemption, subscription changes.",
+            "parameters": {
+                "type": "object",
+                "properties": {"query": {"type": "string", "description": "The customer's account or loyalty query"}},
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "escalate_to_human",
+            "description": "Frustrated customer, complex complaint, or anything outside other agents' scope.",
+            "parameters": {
+                "type": "object",
+                "properties": {"reason": {"type": "string", "description": "Why this needs human escalation"}},
+                "required": ["reason"],
+            },
+        },
+    },
+]
+
+_SYSTEM = (
+    "You are a customer service router for a plant e-commerce store. "
+    "Classify the customer's message and call the single most relevant tool. "
+    "Always call a tool — never respond with plain text."
+)
 
 
-def send_with_retry(chat, message, max_retries=5, base_delay=15):
-    """Send a message with exponential backoff on 429 quota errors."""
+def _build_messages(message: str, history: list) -> list:
+    messages = [{"role": "system", "content": _SYSTEM}]
+    for turn in history:
+        role = turn.get("role", "user")
+        # DB stores role as "model" — map to "assistant" for OpenAI
+        if role == "model":
+            role = "assistant"
+        messages.append({"role": role, "content": turn.get("content", "")})
+    messages.append({"role": "user", "content": message})
+    return messages
+
+
+def route(message: str, history: list, max_retries: int = 5, base_delay: float = 15.0):
+    """
+    Send the customer message to GPT-5 and get back a routing decision.
+    Returns:
+        {"type": "tool_use", "name": "<agent_name>", "args": {...}}
+      or on fallback:
+        {"type": "text", "text": "<direct reply>"}
+    """
+    messages = _build_messages(message, history)
+
     for attempt in range(max_retries):
         try:
-            return chat.send_message(message)
-        except ResourceExhausted:
+            response = _client.chat.completions.create(
+                model=GPT5,
+                messages=messages,
+                tools=ROUTER_TOOLS,
+                tool_choice="required",   # always route — never reply directly
+            )
+            break
+        except RateLimitError:
             if attempt == max_retries - 1:
                 raise
             delay = base_delay * (2 ** attempt) + random.uniform(0, 2)
-            print(f"[Gemini rate limit] Retrying in {delay:.1f}s (attempt {attempt + 1}/{max_retries})...")
+            print(f"[Azure rate limit] Retrying in {delay:.1f}s (attempt {attempt + 1}/{max_retries})...")
             time.sleep(delay)
 
+    msg = response.choices[0].message
 
-# ── Tool declarations ────────────────────────────────────────────────────────
-
-order_shipping_func = FunctionDeclaration(
-    name="order_shipping_agent",
-    description="Order status, tracking, delivery estimates, reship/refund workflows.",
-    parameters={
-        "type": "object",
-        "properties": {"query": {"type": "string", "description": "The customer's query"}},
-        "required": ["query"]
-    }
-)
-
-product_func = FunctionDeclaration(
-    name="product_agent",
-    description="Product catalog, stock/size availability, recommendations, cross-sell.",
-    parameters={
-        "type": "object",
-        "properties": {"query": {"type": "string", "description": "The customer's query about products"}},
-        "required": ["query"]
-    }
-)
-
-returns_refunds_func = FunctionDeclaration(
-    name="returns_refunds_agent",
-    description="Return eligibility, return policy, return labels, refunds within approved limits.",
-    parameters={
-        "type": "object",
-        "properties": {"query": {"type": "string", "description": "The customer's query about returns or refunds"}},
-        "required": ["query"]
-    }
-)
-
-billing_func = FunctionDeclaration(
-    name="billing_agent",
-    description="Failed payments, duplicate charges, promo codes, invoices, refund processing.",
-    parameters={
-        "type": "object",
-        "properties": {"query": {"type": "string", "description": "The customer's billing-related query"}},
-        "required": ["query"]
-    }
-)
-
-loyalty_account_func = FunctionDeclaration(
-    name="loyalty_account_agent",
-    description="Account details, loyalty points, point redemption, subscription changes.",
-    parameters={
-        "type": "object",
-        "properties": {"query": {"type": "string", "description": "The customer's account or loyalty query"}},
-        "required": ["query"]
-    }
-)
-
-escalate_func = FunctionDeclaration(
-    name="escalate_to_human",
-    description="Frustrated customer, complex complaint, or anything outside other agents' scope.",
-    parameters={
-        "type": "object",
-        "properties": {"reason": {"type": "string", "description": "Why this needs human escalation"}},
-        "required": ["reason"]
-    }
-)
-
-router_tool = Tool(function_declarations=[
-    order_shipping_func, product_func, returns_refunds_func,
-    billing_func, loyalty_account_func, escalate_func
-])
-
-# ── Model: gemini-2.0-flash (lighter, saves daily quota) ────────────────────
-model = genai.GenerativeModel(
-    model_name="gemini-3-flash-preview",
-    tools=[router_tool],
-    system_instruction=(
-        "You are a customer service router for an e-commerce store. "
-        "Classify the customer's message and call the single most relevant tool. "
-        "If it fits none well, or the customer seems frustrated, respond directly "
-        "or state you need to escalate."
-    )
-)
-
-
-def route(message: str, history: list):
-    formatted_history = []
-    for turn in history:
-        formatted_history.append({"role": turn["role"], "parts": [turn["content"]]})
-
-    chat = model.start_chat(history=formatted_history)
-    response = send_with_retry(chat, message)
-
-    try:
-        function_call = response.parts[0].function_call if response.parts else None
-    except Exception:
-        function_call = None
-
-    if function_call and function_call.name:
+    if msg.tool_calls:
+        tc = msg.tool_calls[0]
         try:
-            args = dict(function_call.args)
+            args = json.loads(tc.function.arguments)
         except Exception:
             args = {}
-            for k, v in function_call.args.items():
-                args[k] = v
+        return {"type": "tool_use", "name": tc.function.name, "args": args}
 
-        return {"type": "tool_use", "name": function_call.name, "args": args}
-    else:
-        return {"type": "text", "text": response.text}
+    # Fallback — model replied directly despite tool_choice="required"
+    return {"type": "text", "text": msg.content or "I'm not sure how to help with that."}
 
 
 def dispatch_to_specialist(agent_name: str, args: dict, customer_id: str, history: list):
-    query = args.get("query") if isinstance(args, dict) else getattr(args, "query", "")
-    reason = args.get("reason") if isinstance(args, dict) else getattr(args, "reason", "")
+    query = args.get("query", "")
+    reason = args.get("reason", "")
 
     if agent_name == "order_shipping_agent":
         from agents.order_shipping import order_shipping_agent

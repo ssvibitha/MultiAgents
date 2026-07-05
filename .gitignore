@@ -42,4 +42,4 @@ next-env.d.ts
 
 # python cache
 /pycache
-__pycache__
+__pycache__ 

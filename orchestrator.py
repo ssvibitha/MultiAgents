@@ -92,7 +92,7 @@ router_tool = Tool(function_declarations=[
 
 # ── Model: gemini-2.0-flash (lighter, saves daily quota) ────────────────────
 model = genai.GenerativeModel(
-    model_name="gemini-2.0-flash",
+    model_name="gemini-3-flash-preview",
     tools=[router_tool],
     system_instruction=(
         "You are a customer service router for an e-commerce store. "

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Hero from "@/components/home/Hero";
 import ProductGrid from "@/components/home/ProductGrid";
 import Footer from "@/components/layout/Footer";

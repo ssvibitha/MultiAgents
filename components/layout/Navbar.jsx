@@ -17,6 +17,12 @@ import { useCart } from "@/context/CartContext";
 import { useSession, signOut } from "next-auth/react";
 import MegaMenu from "@/components/layout/MegaMenu";
 import dynamic from "next/dynamic";
+import { Great_Vibes } from "next/font/google";
+
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const AIChatPanel = dynamic(() => import("@/components/ai/AIChatPanel"), { ssr: false });
 
@@ -55,11 +61,11 @@ export default function Navbar() {
       <div className="flex items-center gap-5 min-w-fit">
         {/* Logo */}
         <Link
-            href="/"
-            className="text-3xl font-extrabold tracking-tight text-blue-600"
-          >
-            Plantify
-          </Link>
+          href="/"
+          className={`${greatVibes.className} text-5xl text-black`}
+        >
+          Plantify
+        </Link>
       </div>
 
       {/* CENTER SEARCH + ASK AI */}

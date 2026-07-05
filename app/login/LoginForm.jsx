@@ -4,6 +4,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { Great_Vibes } from "next/font/google";
+
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 function safeRedirect(raw) {
   if (!raw || typeof raw !== "string") return "/";
@@ -51,7 +57,7 @@ export default function LoginForm() {
         <div className="flex justify-center mb-5">
           <Link
             href="/"
-            className="text-3xl font-extrabold tracking-tight text-blue-600"
+            className={`${greatVibes.className} text-5xl text-black`}
           >
             Plantify
           </Link>

@@ -1,12 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { Great_Vibes } from "next/font/google";
 
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+});
 export default function SignupForm() {
   const router = useRouter();
 
@@ -91,7 +95,7 @@ export default function SignupForm() {
         <div className="flex justify-center mb-5">
           <Link
             href="/"
-            className="text-3xl font-extrabold tracking-tight text-blue-600"
+            className={`${greatVibes.className} text-5xl text-black`}
           >
             Plantify
           </Link>

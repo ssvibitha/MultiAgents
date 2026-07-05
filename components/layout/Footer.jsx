@@ -38,7 +38,7 @@ export default function Footer() {
         
       </div>
       <div className="text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Violette. All rights reserved.
+        © {new Date().getFullYear()} Plantify. All rights reserved.
       </div>
 
       

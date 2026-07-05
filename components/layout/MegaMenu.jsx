@@ -9,7 +9,7 @@ const menuItems = [
   {
     title: "Outdoor Plants",
     slug: "outdoor-plants",
-    image: "/mega/outdoor.jpg",
+    image: "/categories/flowering.jpg",
     links: [
       {
         label: "Flowering Plants",
@@ -37,7 +37,7 @@ const menuItems = [
   {
     title: "Indoor Plants",
     slug: "indoor-plants",
-    image: "/mega/indoor.jpg",
+    image: "categories/air-purifying.png",
     links: [
       {
         label: "Air Purifying",
@@ -65,7 +65,7 @@ const menuItems = [
   {
     title: "Seeds",
     slug: "seeds",
-    image: "/mega/seeds.jpg",
+    image:"categories/vegetable-seeds.jpg",
     links: [
       {
         label: "Fruit Seeds",
@@ -98,7 +98,7 @@ const menuItems = [
   {
     title: "Tools & Care",
     slug: "tools-care",
-    image: "/mega/tools.jpg",
+    image: "/categories/tools.jpg",
     links: [
       {
         label: "Gardening Tools",

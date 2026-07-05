@@ -108,12 +108,8 @@ async function main() {
       categoryId: indoor.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1593691509543-c55fb32d8de5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Peace Lily",
-        },
-        {
-          url: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
-          alt: "Peace Lily in modern interior",
         }
       ],
       tags: [
@@ -132,12 +128,8 @@ async function main() {
       categoryId: indoor.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1616189597001-9046fce2594d?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Jade Plant",
-        },
-        {
-          url: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80",
-          alt: "Jade Plant care"
         }
       ],
       tags: [
@@ -157,12 +149,8 @@ async function main() {
       categoryId: outdoor.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1496062031456-07b8f162a322?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Rose Plant",
-        },
-        {
-          url: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=800&q=80",
-          alt: "Rose Plant in garden",
         }
       ],
       tags: [
@@ -203,12 +191,8 @@ async function main() {
       categoryId: outdoor.id,
       images: [
           {
-            url: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80",
+            url: "https://images.unsplash.com/photo-1684472993236-b605bb80ca0b?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             alt: "Jasmine"
-          },
-          {
-            url: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
-            alt: "Climbing jasmine plant"
           }
       ],
       tags: [
@@ -227,12 +211,8 @@ async function main() {
       categoryId: outdoor.id,
       images: [
           {
-            url: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80",
+            url: "https://images.unsplash.com/photo-1732472581875-89ff83f18439?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             alt: "Mango Plant"
-          },
-          {
-            url: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
-            alt: "Mango tree with fruits"
           }
       ],
       tags: [
@@ -250,12 +230,8 @@ async function main() {
       categoryId: outdoor.id,
       images: [
           {
-            url: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+            url: "https://images.unsplash.com/photo-1605185189315-fc269c231e41?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             alt: "Lemon Plant"
-          },
-          {
-            url: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=800&q=80",
-            alt: "Lemon Plant in garden"
           }
       ],
       tags: [
@@ -273,12 +249,8 @@ async function main() {
       categoryId: indoor.id,
       images: [
           {
-            url: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
+            url: "https://images.unsplash.com/photo-1768692857070-e57811d9ccaa?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             alt: "Areca Palm"
-          },
-          {
-            url: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
-            alt: "Areca palm guide"
           }
       ],
       tags: [
@@ -298,12 +270,8 @@ async function main() {
       categoryId: seeds.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80",
+          url: "/categories/vegetable-seeds.jpg",
           alt: "Ladyfinger seeds packet"
-        },
-        {
-          url: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=800&q=80",
-          alt: "Ladyfinger seeds to plants"
         }
       ],
       tags: [
@@ -321,12 +289,8 @@ async function main() {
       categoryId: seeds.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1640490201159-b3ae61c54747?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Chilli seeds packet"
-        },
-        {
-          url: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
-          alt: "Chilli seeds to plants"
         }
       ],
       tags: [
@@ -344,12 +308,8 @@ async function main() {
       categoryId: seeds.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1470509037663-253afd7f0f51?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Sunflower seeds packet"
-        },
-        {
-          url: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80",
-          alt: "How to grow sunflower seeds"
         }
       ],
       tags: [
@@ -368,12 +328,8 @@ async function main() {
       categoryId: seeds.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1500420254515-0faefa2dac99?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Basil seeds"
-        },
-        {
-          url: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
-          alt: "Basil seeds packet"
         }
       ],
       tags: [
@@ -392,12 +348,8 @@ async function main() {
       categoryId: seeds.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1535734668010-da0c7d3085f2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Microgreens mix"
-        },
-        {
-          url: "https://images.unsplash.com/photo-1459156212016-c812468e2115?auto=format&fit=crop&w=800&q=80",
-          alt: "Microgreens growing kit"
         }
       ],
       tags: [
@@ -417,12 +369,8 @@ async function main() {
       categoryId: tools.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=800&q=80",
+          url: "/categories/tools.jpg",
           alt: "Garden trowel",
-        },
-        {
-          url: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
-          alt: "Garden trowel in use",
         }
       ],
       tags: [
@@ -440,11 +388,11 @@ async function main() {
       categoryId: tools.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1680124744736-859f16257ef0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Pruning shears with ergonomic handle",
         },
         {
-          url: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1557240231-9378fcdeefa9?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Pruning shears in use"
         }
       ],
@@ -463,12 +411,8 @@ async function main() {
       categoryId: tools.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1667992714862-df8713baf8c6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Watering can for plants"
-        },
-        {
-          url: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80",
-          alt: "Watering plants with the watering can"
         }
       ],
       tags: [
@@ -486,12 +430,8 @@ async function main() {
       categoryId: tools.id,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Organic compost",
-        },
-        {
-          url: "https://images.unsplash.com/photo-1459156212016-c812468e2115?auto=format&fit=crop&w=800&q=80",
-          alt: "Organic compost bag"
         }
       ],
       tags: [
@@ -509,12 +449,8 @@ async function main() {
       categoryId: tools.id,
       images:[
         {
-          url: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80",
+          url: "https://images.unsplash.com/photo-1631323272726-9b6c17a0efaf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           alt: "Grow light with full spectrum",
-        },
-        {
-          url: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
-          alt: "Full Spectrum High Efficiency White LED Grow Light"
         }
       ],
       tags: [
